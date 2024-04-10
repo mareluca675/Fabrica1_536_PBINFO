@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+//#define START ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+//#define FINISH cin.close(); cout.close(); return 0;
+
+typedef unsigned long ull;
+typedef unsigned int ust;
+typedef unsigned short usr;
+
+ust A[10001], n, m;
+
+ust numarPachete(ust B[], ust k, ust n){
+    ust pachete = 0;
+    for(ust i = 1; i <= n; ++ i){
+        pachete += k / A[i];
+    }
+
+    return pachete;
+}
+
+int main()
+{
+    //START;
+
+    cin >> n >> m;
+
+    for(ust i = 1; i <= n; ++ i) {
+        cin >> A[i];
+    }
+
+    ust st = 1, dr = 1000001, mij, nrPachete, ans = 1000001;
+    while(st <= dr){
+        mij = (st + dr) / 2;
+        nrPachete = numarPachete(A, mij, n);
+
+        if(nrPachete >= m){
+            ans = min(ans, mij);
+            dr = mij - 1;
+        }
+        else if(nrPachete < m){
+            st = mij + 1;
+        }
+    }
+
+    cout << ans;
+    return 0;
+    //FINISH;
+}
